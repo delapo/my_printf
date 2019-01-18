@@ -7,7 +7,6 @@
 
 CC		= gcc
 AR 		= ar
-CFLAGDY	= -fPIC
 CFLAGS	= -Wall -Wextra -Werror -fPIC
 NAME	= libmy_printf_`uname -m`-`uname -s`.a
 NAMEDYN	= libmy_printf_`uname -m`-`uname -s`.so
@@ -26,11 +25,11 @@ SRC		= \
 OBJ		= $(SRC:.c=.o)
 
 my_printf_static: $(OBJ)
-	$(AR) rs $(NAME) $(CFLAGS) $(OBJ)
+	$(AR) rcsT $(NAME) $(CFLAGS) $(OBJ)
 my_printf_dynamic: $(OBJ)
 	$(CC) -shared  -o $(NAMEDYN) $(OBJ)
-all: $(NAME)
-$(NAME): $(OBJ)
+all: $(NAME) my_printf_static my_printf_dynamic
+	$(NAME): $(OBJ)
 	gcc $(CFLAGS) $(OBJ) -o $(NAME)
 clean:
 	$(RM) $(OBJ)
