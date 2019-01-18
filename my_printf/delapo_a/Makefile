@@ -1,0 +1,42 @@
+##
+## ETNA PROJECT, 06/10/2018 by delapo_a
+## my_printf Makefile
+## File description:
+##      Makefile to my_printf
+##
+
+CC		= gcc
+AR 		= ar
+CFLAGDY	= -fPIC
+CFLAGS	= -Wall -Wextra -Werror -fPIC
+NAME	= libmy_printf_`uname -m`-`uname -s`.a
+NAMEDYN	= libmy_printf_`uname -m`-`uname -s`.so
+RM		= rm -f
+
+SRC		= \
+		lib/my_nbrlen.c \
+		lib/my_putchar.c \
+		lib/my_putnbr.c \
+		lib/my_putnbr_base.c \
+		lib/my_putnbr_unsigned.c \
+		lib/my_putstr.c \
+		lib/my_strlen.c \
+		my_printf.c
+
+OBJ		= $(SRC:.c=.o)
+
+my_printf_static: $(OBJ)
+	$(AR) rs $(NAME) $(CFLAGS) $(OBJ)
+my_printf_dynamic: $(OBJ)
+	$(CC) -shared  -o $(NAMEDYN) $(OBJ)
+all: $(NAME)
+$(NAME): $(OBJ)
+	gcc $(CFLAGS) $(OBJ) -o $(NAME)
+clean:
+	$(RM) $(OBJ)
+fclean: clean
+	$(RM) $(NAME)
+re:
+	fclean all
+.PHONY:
+	all $(NAME) clean fclean re
