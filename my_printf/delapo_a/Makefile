@@ -25,7 +25,7 @@ SRC		= \
 OBJ		= $(SRC:.c=.o)
 
 my_printf_static: $(OBJ)
-	$(AR) rcsT $(NAME) $(CFLAGS) $(OBJ)
+	$(AR) rcsT $(NAME) $(OBJ)
 my_printf_dynamic: $(OBJ)
 	$(CC) -shared  -o $(NAMEDYN) $(OBJ)
 all: $(NAME) my_printf_static my_printf_dynamic
